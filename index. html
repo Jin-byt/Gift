@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exchange Gift</title>
+    <style>
+        body {
+            font-family: Times New Roman, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #event-info {
+            margin-bottom: 30px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        #picker, #result {
+            margin: 20px;
+            font-size: 18px;
+        }
+        select, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Year-End Exchange Gift</h1>
+    <h2>"The 'Sulod op-da gip' must be SOMETHING FUNNY!"</h2>
+    <h3>PIPTY PESOS ONLE</h3>
+
+    <!-- Event Info Section -->
+    <div id="event-info">
+        DATE & TIME: December 31, 2024 / 1:00 AM <br>
+        VENUE: DALMACIO MANSION
+    </div>
+
+    <p>Pick a number to reveal the name! (BUNUTA ANG KUGANG!</p>
+
+    <select id="numberSelect">
+        <option value="">Select a Number</option>
+    </select>
+    <br>
+    <button onclick="revealName()">Reveal Name</button>
+
+    <div id="result"></div>
+
+    <script>
+        // List of participants (names)
+        const participants = ["Norvie", "Cristine", "Jiezl", "Jellyn", "Lady", "MG"];
+
+        // Shuffle the names randomly
+        const shuffledNames = participants.sort(() => Math.random() - 0.5);
+
+        // Populate the select dropdown with numbers
+        const numberSelect = document.getElementById('numberSelect');
+        for (let i = 1; i <= shuffledNames.length; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = `Number ${i}`;
+            numberSelect.appendChild(option);
+        }
+
+        function revealName() {
+            const selectedNumber = numberSelect.value;
+            if (selectedNumber) {
+                const index = selectedNumber - 1;
+                const name = shuffledNames[index];
+
+                // Show the result
+                document.getElementById('result').innerHTML = `<h2>You picked: ${name}</h2>`;
+
+                // Remove the selected option
+                const optionToRemove = numberSelect.querySelector(`option[value="${selectedNumber}"]`);
+                optionToRemove.remove();
+
+                // Reset the dropdown to default
+                numberSelect.value = "";
+            } else {
+                alert("Please select a number first!");
+            }
+        }
+    </script>
+
+</body>
+</html>
